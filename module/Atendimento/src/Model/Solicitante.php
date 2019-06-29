@@ -23,7 +23,7 @@ class Solicitante
     private $telefone;
 
     /**
-     * 
+     *
      * @param RequestInterface $request
      */
     public function getFromPost(RequestInterface $request)
@@ -37,21 +37,41 @@ class Solicitante
         $this->ddd = $request->getPost("ddd");
         $this->telefone = $request->getPost("telefone");
     }
-    
+
     /**
-     * 
+     *
      * @param RequestInterface $request
      * @return \Atendimento\Model\Solicitante
      */
-    public  static function getModelFromPost(RequestInterface $request) {
+    public static function getModelFromPost(RequestInterface $request)
+    {
         $solicitante = new Solicitante();
         $solicitante->getFromPost($request);
         return $solicitante;
     }
-    public function toArray() {
-        
-        
-        
+
+    /**
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return get_object_vars($this);
+    }
+
+    public function exchangeArray($data)
+    {
+        $this->cpf = $data["cpf"];
+        $this->nome = $data["nome"];
+        $this->cep = $data["CEP"];
+        $this->municipio = $data["municipio"];
+        $this->uf = $data["UF"];
+        $this->email = $data["email"];
+        $this->ddd = $data["ddd"];
+        $this->telefone = $data["telefone"];
+    }
+    public function getArrayCopy() {
+        return get_object_vars($this);
     }
 }
 

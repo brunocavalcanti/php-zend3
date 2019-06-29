@@ -1,0 +1,18 @@
+<h1>Cadastro de Assunto</h1>
+
+<a
+	href="<?=$this->url('atendimento',['controller' => 'assunto','action' => 'editar'])?>">Incluir
+	assunto</a>
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Assunto</th>
+			<th>Excluir</th>
+		</tr>
+	</thead>
+	<tbody>
+	<?=$this->partialLoop('assuntos.phtml', $this->assuntos);?>
+	</tbody>
+
+</table>

@@ -12,14 +12,14 @@
  */
 return [
     'db' => [
-        'driver' => 'Mysqli',
+        'driver' => 'Pdo_Mysql',
         'database' => 'demandas',
         'hostname' => 'localhost'
         
     ],
     'service_manager' => [
         'factories' => [
-            'DBAdapter' => 'Zend\Adapter\AdapterServiceFactory'
+            'DBAdapter' => 'Zend\Db\Adapter\AdapterServiceFactory'
         ]
     ]
 ];

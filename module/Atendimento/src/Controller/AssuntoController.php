@@ -8,11 +8,11 @@ namespace Atendimento\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Atendimento\Form\SolicitanteForm;
-use Atendimento\Model\Solicitante;
+use Atendimento\Form\AssuntoForm;
+use Atendimento\Model\Assunto;
 use Interop\Container\ContainerInterface;
 
-class SolicitanteController extends AbstractActionController
+class AssuntoController extends AbstractActionController
 {
 
     /**
@@ -28,42 +28,42 @@ class SolicitanteController extends AbstractActionController
 
     public function indexAction()
     {
-        $solicitantes = $this->container->get('SolicitanteTable')->getAll();
+        $assuntos = $this->container->get('AssuntoTable')->getAll();
         return new ViewModel([
-            'solicitantes' => $solicitantes
+            'assuntos' => $assuntos
         ]);
     }
 
     public function gravarAction()
     {
-        $solicitante = Solicitante::getModelFromPost($this->getRequest());
-        $this->container->get('SolicitanteTable')->save($solicitante);
+        $assunto = Assunto::getModelFromPost($this->getRequest());
+        $this->container->get('AssuntoTable')->save($assunto);
         return $this->redirect()->toRoute('atendimento', [
-            'controller' => 'solicitante'
+            'controller' => 'assunto'
         ]);
     }
 
     public function excluirAction()
     {
         $key = $this->params('key');
-        $this->container->get('SolicitanteTable')->delete($key);
+        $this->container->get('AssuntoTable')->delete($key);
         return $this->redirect()->toRoute('atendimento', [
-            'controller' => 'solicitante'
+            'controller' => 'assunto'
         ]);
     }
 
     public function editarAction()
     {
         $key = $this->params('key');
-        $solicitante = $this->container->get('SolicitanteTable')->find($key);
+        $assunto = $this->container->get('AssuntoTable')->find($key);
 
-        $form = new SolicitanteForm();
+        $form = new AssuntoForm();
         $form->setAttribute('action', $this->url()
             ->fromRoute('atendimento', [
-            'controller' => 'solicitante',
+            'controller' => 'assunto',
             'action' => 'gravar'
         ]));
-        $form->bind($solicitante);
+        $form->bind($assunto);
         return new ViewModel([
             'form' => $form
         ]);

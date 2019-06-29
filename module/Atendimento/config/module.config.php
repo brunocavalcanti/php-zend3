@@ -6,7 +6,6 @@
  */
 namespace Atendimento;
 
-use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\Form\View\Helper\Form;
@@ -19,13 +18,16 @@ use Zend\Form\View\Helper\FormText;
 use Zend\Form\View\Helper\FormEmail;
 use Zend\Form\View\Helper\FormNumber;
 use Zend\Form\View\Helper\FormSubmit;
+use Atendimento\Controller\SolicitanteControllerFactory;
+use Atendimento\Controller\AssuntoControllerFactory;
+use Zend\Form\View\Helper\FormHidden;
 return [
     'router' => [
         'routes' => [
             'atendimento' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/atendimento[/:controller[/:action]]',
+                    'route' => '/atendimento[/:controller[/:action][/:key]]',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action' => 'index'
@@ -36,11 +38,13 @@ return [
     ],
     'controllers' => [
         'aliases' => [
-            'solicitante' => Controller\SolicitanteController::class
+            'solicitante' => Controller\SolicitanteController::class,
+            'assunto' => Controller\AssuntoController::class
         ],
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
-            Controller\SolicitanteController::class => SolicitanteControllerFactory::class
+            Controller\SolicitanteController::class => SolicitanteControllerFactory::class,
+            Controller\AssuntoController::class => AssuntoControllerFactory::class
         ]
     ],
     'view_manager' => [
@@ -70,7 +74,8 @@ return [
             'formtext' => FormText::class,
             'formemail' => FormEmail::class,
             'formnumber' => FormNumber::class,
-            'formsubmit' => FormSubmit::class
+            'formsubmit' => FormSubmit::class,
+            'formhidden' => FormHidden::class
         ],
         'factories' => [
             Form::class => InvokableFactory::class,
@@ -82,12 +87,14 @@ return [
             FormText::class => InvokableFactory::class,
             FormEmail::class => InvokableFactory::class,
             FormNumber::class => InvokableFactory::class,
-            FormSubmit::class => InvokableFactory::class
+            FormSubmit::class => InvokableFactory::class,
+            FormHidden::class => InvokableFactory::class
         ]
     ],
     'service_manager' => [
         'factories' => [
-            'SolicitanteTable' => 'Atendimento\Model\SolicitanteTableFactory'
+            'SolicitanteTable' => 'Atendimento\Model\SolicitanteTableFactory',
+            'AssuntoTable' => 'Atendimento\Model\AssuntoTableFactory'
         ]
     ]
 ];

@@ -1,2 +1,18 @@
 <h1>Cadastro de Solicitante</h1>
-<a href="<?=$this->url('atendimento',['controller' => 'solicitante','action' => 'incluir'])?>">Incluir solicitante</a>
+
+<a
+	href="<?=$this->url('atendimento',['controller' => 'solicitante','action' => 'editar'])?>">Incluir
+	solicitante</a>
+<table>
+	<thead>
+		<tr>
+			<th>CPF</th>
+			<th>Nome</th>
+			<th>Excluir</th>
+		</tr>
+	</thead>
+	<tbody>
+	<?=$this->partialLoop('solicitantes.phtml', $this->solicitantes);?>
+	</tbody>
+
+</table>

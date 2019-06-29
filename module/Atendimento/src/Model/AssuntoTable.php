@@ -4,7 +4,7 @@ namespace Atendimento\Model;
 use Zend\Db\TableGateway\TableGatewayInterface;
 use Zend\Db\Sql\Where;
 
-class SolicitanteTable
+class AssuntoTable
 {
 
     /**
@@ -20,16 +20,16 @@ class SolicitanteTable
 
     /**
      *
-     * @param Solicitante $solicitante
+     * @param Assunto $assunto
      */
-    public function save(Solicitante $solicitante)
+    public function save(Assunto $assunto)
     {
-        $set = $solicitante->toArray();
+        $set = $assunto->toArray();
         $where = [
-            'cpf' => $set['cpf']
+            'codigo' => $set['codigo']
         ];
-        $solicitantes = $this->tableGateway->select($where);
-        if ($solicitantes->current() == null) {
+        $assuntos = $this->tableGateway->select($where);
+        if ($assuntos->current() == null) {
             $this->tableGateway->insert($set);
         } else {
             $this->tableGateway->update($set, $where);
@@ -46,25 +46,25 @@ class SolicitanteTable
         return $this->tableGateway->select($where);
     }
 
-    public function delete($cpf = '')
+    public function delete($codigo = '')
     {
         $where = [
-            'cpf' => $cpf
+            'codigo' => $codigo
         ];
         return $this->tableGateway->delete($where);
     }
 
-    public function find($cpf = '')
+    public function find($codigo = '')
     {
         $where = [
-            'cpf' => $cpf
+            'codigo' => $codigo
         ];
-        $solicitantes = $this->tableGateway->select($where);
-        $solicitante = $solicitantes->current();
-        if ($solicitante == null) {
-            $solicitante = new Solicitante();
+        $assuntos = $this->tableGateway->select($where);
+        $assunto = $assuntos->current();
+        if ($assunto == null) {
+            $assunto = new Assunto();
         }
-        return $solicitante;
+        return $assunto;
     }
 }
 

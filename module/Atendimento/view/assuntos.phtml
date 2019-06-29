@@ -1,0 +1,10 @@
+<tr>
+	<td><a
+		href="<?=$this->url('atendimento',['controller'=>'assunto','action'=>'editar','key'=>$this->codigo])?>">
+	<?=$this->codigo?>
+	</a></td>
+	<td><?=$this->assunto?></td>
+	<td><a
+		href="<?=$this->url('atendimento',['controller'=>'assunto','action'=>'excluir','key'=>$this->codigo])?>">
+			X </a></td>
+</tr>
